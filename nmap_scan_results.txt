@@ -1,0 +1,183 @@
+====================================================================
+ NMAP SCAN RESULTS — TASK 1: BASIC NETWORK SCANNING
+====================================================================
+
+Scan date:        2026-07-30
+Analyst:          Kishan
+Target IP:        10.95.171.90
+Target hostname:  kishan-PORTEGE-Z30t-B.local
+Target OS:        Ubuntu Linux (personal laptop)
+Scanning host:    Same machine (kishan-PORTEGE-Z30t-B), Wi-Fi interface wlp2s0
+Network mode:     Home Wi-Fi, 10.95.171.0/24
+Nmap version:     7.98
+Authorization:    Own personal laptop, scanned over own home network.
+                   No external or third-party systems scanned.
+
+====================================================================
+ 1. NMAP INSTALLATION
+====================================================================
+
+Command: sudo apt update && sudo apt install nmap
+
+--- SUMMARY OF INSTALL OUTPUT ---
+Installing: nmap (7.98+dfsg-1)
+Installing dependencies: libblas3, liblinear4, nmap-common
+Download size: 6,525 kB
+Space needed: 28.4 MB
+Result: install completed successfully.
+
+Command: nmap --version
+
+--- OUTPUT ---
+Nmap version 7.98 ( https://nmap.org )
+Platform: x86_64-pc-linux-gnu
+Compiled with: liblua-5.4.8 openssl-3.5.5 libssh2-1.11.1 libz-1.3.1
+  libpcre2-10.46 libpcap-1.10.6 nmap-libdnet-1.18.0 ipv6
+Compiled without:
+Available nsock engines: epoll poll select
+
+====================================================================
+ 2. TARGET IDENTIFICATION
+====================================================================
+
+Command: ip a
+
+Relevant interface found:
+  wlp2s0: BROADCAST,MULTICAST,UP,LOWER_UP
+    inet 10.95.171.90/24 brd 10.95.171.255 scope global dynamic wlp2s0
+
+  (lo = loopback 127.0.0.1, unused for scanning;
+   enp0s25 = wired ethernet, state DOWN, not connected)
+
+Target IP used for all scans below: 10.95.171.90
+
+====================================================================
+ 3. BASIC SCAN
+ Command: nmap 10.95.171.90
+====================================================================
+
+--- RAW OUTPUT ---
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-07-30 11:12 +0530
+Nmap scan report for kishan-PORTEGE-Z30t-B.local (10.95.171.90)
+Host is up (0.00035s latency).
+Not shown: 999 closed tcp ports (conn-refused)
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 0.25 seconds
+
+--- OBSERVATIONS ---
+Open ports found: 22/tcp (ssh)
+All other 999 commonly-checked ports: closed (connection actively refused)
+
+====================================================================
+ 4. SERVICE VERSION SCAN
+ Command: sudo nmap -sV 10.95.171.90
+====================================================================
+
+--- RAW OUTPUT ---
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-07-30 11:15 +0530
+Nmap scan report for kishan-PORTEGE-Z30t-B.local (10.95.171.90)
+Host is up (0.00014s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 10.2p1 Ubuntu 2ubuntu3.5 (Ubuntu Linux; protocol 2.0)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at
+https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.58 seconds
+
+--- OBSERVATIONS ---
+Service and version identified:
+  - Port 22/tcp  ssh   OpenSSH 10.2p1 (Ubuntu build 2ubuntu3.5)
+Service Info reports underlying OS as Linux (cpe:/o:linux:linux_kernel).
+
+Note: with sudo, Nmap used a SYN scan instead of a full TCP connect scan,
+which is why the "not shown" ports were reported as filtered here instead
+of closed as in the basic scan above. This is expected behavior, not a
+configuration problem.
+
+====================================================================
+ 5. OS DETECTION SCAN
+ Command: sudo nmap -O 10.95.171.90
+====================================================================
+
+STATUS: NOT YET PERFORMED.
+
+This scan still needs to be run and its raw output pasted here, along with
+a corresponding screenshot in screenshots/. The service version scan above
+already reports the underlying OS as Linux via its CPE string
+(cpe:/o:linux:linux_kernel), so the -O scan is expected to return a
+Linux kernel fingerprint (e.g., "Linux 5.X - 6.X"), but this should be
+confirmed with the actual command before this task is considered complete.
+
+--- RAW OUTPUT (to be filled in) ---
+
+<paste sudo nmap -O output here>
+
+--- OBSERVATIONS (to be filled in) ---
+Detected OS / device type:
+Confidence level reported by Nmap:
+
+====================================================================
+ 6. PORT-BY-PORT SECURITY ANALYSIS
+====================================================================
+
+--------------------------------------------------------------------
+Port:          22/tcp
+Service:       SSH (Secure Shell)
+Version:       OpenSSH 10.2p1 (Ubuntu 2ubuntu3.5)
+What it does:  Provides encrypted remote command-line login and file
+               transfer (via SCP/SFTP) to this machine.
+Security risk: LOW–MEDIUM. SSH is encrypted by design, so traffic
+               interception isn't the main concern. Real-world risk
+               comes from:
+                 - Password-based authentication being enabled, which
+                   is brute-forceable over time.
+                 - The service being reachable from untrusted networks
+                   (e.g., public Wi-Fi, the open internet) rather than
+                   just the home LAN.
+                 - Root login being permitted directly over SSH.
+               OpenSSH 10.2p1 is a recent version, so no known
+               unpatched CVEs are expected at time of writing.
+Recommendation: Use SSH key-based authentication instead of passwords,
+               disable root login (PermitRootLogin no), keep the
+               package updated via apt, and avoid exposing port 22 to
+               the public internet without a firewall/VPN in front of it.
+--------------------------------------------------------------------
+
+All other 999 commonly-scanned TCP ports were closed/filtered — i.e., no
+other services (web servers, databases, file sharing, etc.) were found
+listening on this machine at scan time.
+
+====================================================================
+ 7. OVERALL SUMMARY
+====================================================================
+
+Total open ports found: 1 (port 22/tcp, SSH)
+Highest risk finding:   SSH exposed on the local network; risk level
+                        depends entirely on its authentication
+                        configuration (password vs. key-based), which
+                        was not directly inspected in this exercise.
+Overall risk assessment: LOW. Only one service is exposed, it is an
+                        encrypted protocol, and it is only reachable on
+                        the home Wi-Fi network rather than the public
+                        internet.
+Suggested next steps:
+  - Run the pending sudo nmap -O 10.95.171.90 scan and document it above.
+  - Verify /etc/ssh/sshd_config: confirm PasswordAuthentication and
+    PermitRootLogin settings.
+  - Consider re-running this exercise against an isolated VM target
+    (as originally suggested) to practice scanning a machine with more
+    varied open services (web server, ftp, database, etc.) for a
+    richer port analysis.
+
+====================================================================
+ 8. ETHICS STATEMENT
+====================================================================
+This scan was performed exclusively against my own personal laptop,
+scanned over my own home Wi-Fi network. No external, third-party, or
+production system was scanned. This exercise was conducted solely for
+educational purposes.
+====================================================================
