@@ -139,18 +139,17 @@ connect scan to a SYN scan, which is why "999 closed" (basic scan) became
 "999 filtered" (sudo scan) — a raw-socket SYN probe behaves slightly
 differently than a full TCP handshake when no service is listening.
 
-### 6.4 OS detection scan — ⏳ pending
+### 6.4 OS detection scan — ✅ complete
+
 ```bash
-sudo nmap -O 10.95.171.90
+sudo nmap -O 192.168.29.24
 ```
-**Not yet run / no screenshot captured for this step.** This still needs to
-be performed and added to `nmap_scan_results.txt` and `screenshots/` to fully
-satisfy the checklist. Since `-sV` already reported `OS: Linux; CPE:
-cpe:/o:linux:linux_kernel`, the `-O` scan is expected to confirm a Linux
-kernel fingerprint, but should still be run and documented explicitly.
 
-Full raw output is recorded in `nmap_scan_results.txt`.
-
+> **Note:** This scan was run in a later session, on a different Wi‑Fi
+> network than the earlier scans (home router subnet `192.168.29.0/24`
+> instead of `10.95.171.0/24`), so the target IP differs from sections 6.2
+> and 6.3 above. Same physical laptop, same authorization basis (own
+> machine, own network).
 ## 7. Findings summary
 
 | Port | Service | Version                                   | Risk Level | Notes |
