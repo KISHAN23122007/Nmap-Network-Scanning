@@ -100,25 +100,49 @@ configuration problem.
 
 ====================================================================
  5. OS DETECTION SCAN
- Command: sudo nmap -O 10.95.171.90
 ====================================================================
+Command: sudo nmap -O 192.168.29.24
 
-STATUS: NOT YET PERFORMED.
+Note: This scan was run in a later session, on a different Wi-Fi network
+than the earlier scans (home router subnet 192.168.29.0/24 instead of
+10.95.171.0/24), so the target IP differs from sections 6.2 and 6.3 above.
+Same physical laptop, same authorization basis (own machine, own network).
 
-This scan still needs to be run and its raw output pasted here, along with
-a corresponding screenshot in screenshots/. The service version scan above
-already reports the underlying OS as Linux via its CPE string
-(cpe:/o:linux:linux_kernel), so the -O scan is expected to return a
-Linux kernel fingerprint (e.g., "Linux 5.X - 6.X"), but this should be
-confirmed with the actual command before this task is considered complete.
+STATUS: COMPLETE.
 
---- RAW OUTPUT (to be filled in) ---
+--- RAW OUTPUT ---
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-14 17:58 +0530
+Nmap scan report for kishan-PORTEGE-Z30t-B.local (192.168.29.24)
+Host is up (0.00029s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT   STATE SERVICE
+22/tcp open  ssh
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 5.0 - 6.2 (96%), Linux 5.8 (93%), HP P2000 G3 NAS device (92%), Linux 3.12 (91%), Linux 3.7 - 4.19 (91%), Linux 2.6.32 (91%), Linux 3.8 - 3.9 (91%), Linux 4.1 (91%), Linux 5.4 - 5.8 (91%), Linux 4.10 (91%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 0 hops
 
-<paste sudo nmap -O output here>
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 12.48 seconds
 
---- OBSERVATIONS (to be filled in) ---
-Detected OS / device type:
-Confidence level reported by Nmap:
+--- OBSERVATIONS ---
+Detected OS / device type: No single exact match. Nmap's best guesses all
+point to a Linux kernel in the 3.x-6.x range, with "Linux 5.0 - 6.2" as the
+top guess at 96% confidence — consistent with this being a modern Ubuntu
+laptop.
+
+Confidence level reported by Nmap: Low/unreliable by Nmap's own admission.
+The tool explicitly warns that OS fingerprinting needs at least one open
+and one closed TCP port to work reliably; this host only has one open port
+(22/ssh) and the rest are filtered (not closed), so Nmap couldn't get a
+clean fingerprint. It fell back to "Aggressive guesses" — a ranked list of
+probabilities — rather than a confirmed match. This is expected behavior on
+a well-locked-down single-service host, not a scan error.
+
+Network Distance: 0 hops, confirming the scan was run against the local
+machine itself (loopback-equivalent, same host).
+
+
 
 ====================================================================
  6. PORT-BY-PORT SECURITY ANALYSIS
