@@ -42,9 +42,6 @@ testing.
   system was scanned.
 - **Scan traffic stayed on a private local network** (a home Wi‑Fi subnet),
   never touching the public internet or someone else's infrastructure.
-- **Results are treated as sensitive**: real IP/MAC addresses appear in the
-  raw screenshots; if this repo is public, consider cropping/redacting the
-  MAC addresses and system tray details before sharing widely.
 
 > Note: The original task suggested scanning an isolated VM (e.g., Kali or
 > Ubuntu in VirtualBox). For this run, my own laptop was scanned directly
