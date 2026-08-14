@@ -197,3 +197,5 @@ security write-up.
 - Nmap reference guide (man page): https://nmap.org/book/man.html
 - Common ports and services (IANA registry):
   https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml
+  ## Demo Video
+[Watch the Task 1 demo](./Demo%20Video.webm)
