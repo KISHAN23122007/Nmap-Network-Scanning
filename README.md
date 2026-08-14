@@ -150,8 +150,10 @@ sudo nmap -O 192.168.29.24
 > instead of `10.95.171.0/24`), so the target IP differs from sections 6.2
 > and 6.3 above. Same physical laptop, same authorization basis (own
 > machine, own network).
-**Results:**
-......
+
+**Result:**
+
+\`\`\`
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-08-14 17:58 +0530
 Nmap scan report for kishan-PORTEGE-Z30t-B.local (192.168.29.24)
 Host is up (0.00029s latency).
@@ -162,6 +164,10 @@ Warning: OSScan results may be unreliable because we could not find at least 1 o
 Aggressive OS guesses: Linux 5.0 - 6.2 (96%), Linux 5.8 (93%), HP P2000 G3 NAS device (92%), Linux 3.12 (91%), Linux 3.7 - 4.19 (91%), Linux 2.6.32 (91%), Linux 3.8 - 3.9 (91%), Linux 4.1 (91%), Linux 5.4 - 5.8 (91%), Linux 4.10 (91%)
 No exact OS matches for host (test conditions non-ideal).
 Network Distance: 0 hops
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 12.48 seconds
+\`\`\`
 
 ## 7. Findings summary
 
